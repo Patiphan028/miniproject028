@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       //final message = await NetworkService().validateUserLoginDio(username, password);
                       print('login with $username $password');
-                      if (username == '' && password == '') {
+                      if (username == 'u1' && password == 'p1') {
                         print('login succes');
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.setString(AppSetting.userNameSetting, username);
