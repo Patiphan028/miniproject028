@@ -1,61 +1,59 @@
 
 import 'package:flutter/material.dart';
-import 'package:project/src/pages/Detail/condo_detail_page.dart';
-import 'package:project/src/pages/detail/amp_detail_page.dart';
-import 'package:project/src/pages/detail/dormitory_detail_page.dart';
-import 'package:project/src/pages/home/home_page.dart';
-import 'package:project/src/pages/info/info.page.dart';
-import 'package:project/src/pages/login/login_page.dart';
-import 'package:project/src/pages/map/google_map_page.dart';
-//import 'package:project/src/pages/model/dormitory_model.dart';
-import 'package:project/src/pages/pages.dart';
-import 'package:project/src/pages/room/apm_page.dart';
-import 'package:project/src/pages/room/condo_page.dart';
-import 'package:project/src/pages/room/dormitory_page.dart';
-import 'package:project/src/pages/room/room_page.dart';
-import 'package:project/src/pages/subscribe/subscribe_page.dart';
-import 'package:project/src/roomadd/roomadd_page.dart';
+import 'package:miniproject/src/pages/apm/amp_detail_page.dart';
+import 'package:miniproject/src/pages/apm/apm_page.dart';
+import 'package:miniproject/src/pages/condo/condo_detail_page.dart';
+import 'package:miniproject/src/pages/condo/condo_page.dart';
+import 'package:miniproject/src/pages/dm/dormitory_detail_page.dart';
+import 'package:miniproject/src/pages/dm/dormitory_page.dart';
 
 
-class AppRoute {
-  static const homeRoute = 'home';
-  static const infoRoute = 'info';
-  static const LoginRoute = 'login';
-  static const upcomingMovieRoute = 'upcoming';
-  static const movieDetailRoute = 'movie';
-  static const videoRoute = 'video';
-  static const scanRoute = 'scan';
-  static const qrGenRoute = "qrCodeScan";
-  static const gameRoute = 'game';
-  static const gameManageRoute = 'gameManage';
-  static const mapRoute = 'map';
-  static const subscribeRoute ='subscribe';
-  static const roomRoute ='room';
-  static const condoRoute ='condo';
-  static const ApartmentRoute = 'Apartment';
-  static const condoDetailRoute = 'condoDetail';
-  static const ampDetailRoute = 'ampDetail';
-  static const roomaddRoute = 'roomadd';
-  static const dormRoute = 'dorm';
-  static const dormDetailRoute = 'dormDetail';
+import 'package:miniproject/src/pages/home/home_page.dart';
+import 'package:miniproject/src/pages/info/info_page.dart';
+import 'package:miniproject/src/pages/login/login_page.dart';
+import 'package:miniproject/src/pages/map/google_map_page.dart';
+import 'package:miniproject/src/pages/member/mysignup_page.dart';
+import 'package:miniproject/src/pages/room/room_page.dart';
+import 'package:miniproject/src/pages/room/roomadd_page.dart';
 
+class AppRoute{
+  static const homeRoute = "home";
+  static const infoRoute = "info";
+  static const LoginRoute = "login";
+  static const upcomingMovieRoute = "upcoming";
+  static const MovieDetilRoute = "movie";
+  static const videoRoute = "video";
+  static const qrScanRoute = "qrScan";
+  static const qrCreateRoute = "qrCreate";
+  static const gameRoute = "game";
+  static const gameManagementRoute = "gameManage";
+  static const mapRoute = "Map";
+  static const mysignupRout = "mysignup";
+  static const condoRout = "condo";
+  static const condoDetailRout = "condos";
+  static const apmRout = "apm";
+  static const apmDetailRout = "apms";
+  static const roomRout ='room';
+  static const dmRout ='dm';
+  static const dmDetailRout ='dms';
+  static const addRout = 'add';
 
   final _route = <String, WidgetBuilder>{
-    homeRoute : (context) => HomePage(),
-    infoRoute : (context) => InfoPage(),
-    LoginRoute : (context) => LoginPage(),
-    mapRoute : (context) => GoogleMapPage(),
-    subscribeRoute : (context) => MySignUpPage(),
-    roomRoute : (context) => RoomPage(),
-    condoRoute : (context) => CondoPage (),
-    ApartmentRoute : (context) => ApmPage(),
-    condoDetailRoute : (context) => CondoDetailPage (),
-    ampDetailRoute : (context) => ApmDetailPage (),
-    roomaddRoute : (context) => RoomaddPage (),
-    dormRoute : (context) => DmPage(),
-    dormDetailRoute : (context) => DmDetailPage(),
-
+    homeRoute: (context) => HomePage(),
+    infoRoute: (context) => InfoPage(),
+    LoginRoute: (context) => LoginPage(),
+    mapRoute: (context) => GoogleMapPage(),
+    mysignupRout: (context) => MySignUpPage(),
+    condoRout: (context) => CondoPage(),
+    condoDetailRout: (context) => CondoDetailPage(),
+    apmRout: (context) => ApmPage(),
+    apmDetailRout: (context) => ApmDetailPage(),
+    roomRout : (context) => RoomPage(),
+    dmRout : (context) => DmPage(),
+    dmDetailRout : (context) => DmDetailPage(),
+    addRout : (context) => RoomaddPage (),
 
   };
+
   get getAll => _route;
-} //end
+}//end class

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/src/configs/app_route.dart';
-//import 'package:project/src/services/network.dart';
+import 'package:miniproject/src/configs/app_route.dart';
 
 class RoomPage extends StatefulWidget {
   @override
@@ -14,123 +13,114 @@ class _RoomPageState extends State<RoomPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.pink,
-          title: Text('ประเภทห้องเช่า')
-      ),
+          backgroundColor: Colors.lightGreen, title: Text('ประเภทห้องเช่า')),
       body: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/TA.png'),
-                  fit: BoxFit.cover,
-                )),
+                gradient: LinearGradient(
+                  colors: [Color(0xFFFAAFFA9), Color(0xFFF11FFBD)],
+                )
+                ),
           ),
           Column(
             children: <Widget>[
-              //CircleAvatar(
-                //radius: 50,
-                //backgroundImage: AssetImage('assets/images/house.png'),
-              //),
+              SizedBox(
+                height: 20,
+              ),
               Text(
                 'ประเภทห้องเช่า',
                 style: TextStyle(
                     fontSize: 30, fontFamily: 'Pacifico', color: Colors.white),
               ),
-              // Text(
-              //   'STUDENT',
-              //   style: TextStyle(
-              //       fontSize: 30,
-              //       fontFamily: 'Source Sans Pro',
-              //       color: Colors.redAccent),
-              // ),
+              SizedBox(
+                height: 50,
+              ),
               SizedBox(
                 width: 200,
-                height: 30,
-                child: Divider(
-                  color: Colors.black26,
-                  thickness: 5,
+                height: 50,
+                child: Row(
+                  children: <Widget>[
+                    // Image.network(
+                    //   'https://cdn-icons-png.flaticon.com/512/2101/2101155.png',
+                    //   width: 60,
+                    //   height: 60,
+                    //),
+                  ],
                 ),
               ),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, AppRoute.condoRoute);
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoute.condoRout);
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   padding: EdgeInsets.all(10),
-                  color: Colors.black26,
+                  color: Colors.white70,
                   child: Row(
                     children: <Widget>[
-                      Image.network('https://cdn-icons-png.flaticon.com/512/2101/2101155.png',
+                      Image.network(
+                        'https://cdn-icons-png.flaticon.com/512/3752/3752680.png',
                         width: 60,
-                        height: 60,)
-                      ,
-                      //Icon(
-                        //Icons.home_work_rounded,
-                        //color: Colors.red,
-                      //),
-                      //SizedBox(width: 5),
+                        height: 60,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Text(
                         'คอนโดมิเนี่ยน',
-                        style: TextStyle(
-                          fontSize: 20,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
                     ],
                   ),
                 ),
               ),
-
               GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, AppRoute.ApartmentRoute);
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoute.apmRout);
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   padding: EdgeInsets.all(10),
-                  color: Colors.black26,
+                  color: Colors.white70,
                   child: Row(
                     children: <Widget>[
-                      Image.network('https://cdn-icons-png.flaticon.com/512/2188/2188540.png',
+                      Image.network(
+                        'https://cdn-icons-png.flaticon.com/512/887/887989.png',
                         width: 60,
-                        height: 60,)
-                      ,
+                        height: 60,
+                      ),
                       SizedBox(width: 5),
                       Text(
                         'อพาร์ทเมนท์',
-                        style: TextStyle(
-                          fontSize: 20,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
                     ],
                   ),
                 ),
               ),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, AppRoute.dormRoute);
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoute.dmRout);
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   padding: EdgeInsets.all(10),
-                  color: Colors.black26,
+                  color: Colors.white70,
                   child: Row(
                     children: <Widget>[
-                      Image.network('https://cdn-icons-png.flaticon.com/512/1464/1464155.png',
+                      Image.network(
+                        'https://cdn-icons-png.flaticon.com/512/2942/2942593.png',
                         width: 60,
-                        height: 60,),
-                      Text(
-                        'พูลวิลล่า',
-                        style: TextStyle(fontSize: 20,
-                            color: Colors.white),
-                          textAlign: TextAlign.center
+                        height: 60,
                       ),
+                      Text('ห้องพัก',
+                          style: TextStyle(fontSize: 20, color: Colors.black),
+                          textAlign: TextAlign.center),
                     ],
                   ),
                 ),
               )
-
             ],
           ),
         ],

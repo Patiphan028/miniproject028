@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GoogleMapPage extends StatefulWidget {
@@ -17,39 +16,33 @@ class GoogleMapPageState extends State<GoogleMapPage> {
   Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _initMap = CameraPosition(
-    target: LatLng(12.9311616826999, 100.88149478199904), //พัทยา
+    target: LatLng(7.171472166327647, 100.61357176390162),//SKRU
     zoom: 12,
   );
 
-  StreamSubscription<LocationData> _locationSubscription;
-  final _locationService = Location();
-
   final Set<Marker> _markers = {};
 
-  @override
-  void dispose() {
-    _locationSubscription?.cancel();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       body: GoogleMap(
         markers: _markers,
-        trafficEnabled: true,
         mapType: MapType.normal,
         initialCameraPosition: _initMap,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
-          //other code here
           _dummyLoction();
         },
       ),
-      floatingActionButton: _buildTrackingButton(),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: null,
+      //   label: Text('To the lake!'),
+      //   icon: Icon(Icons.directions_boat),
+      // ),
     );
   }
-
   Future<void> _dummyLoction() async {
     await Future.delayed(Duration(seconds: 2));
     List<LatLng> data = [
@@ -60,15 +53,9 @@ class GoogleMapPageState extends State<GoogleMapPage> {
       LatLng(7.14442496005234, 100.60026235476114), // Wat Khaokaew
     ];
 
-    List<String> placeName = [
-      'TSU',
-      'Jittavet',
-      'Pongsin Co.',
-      'Songkhla Zoo',
-      'Wat Khaokaew'
-    ];
+    List<String> placeName = ['TSU','Jittavet','Pongsin Co.','Songkhla Zoo','Wat Khaokaew'];
 
-    for (int i = 0; i < data.length; i++) {
+    for(int i=0; i<data.length; i++){
       await _addMarker(
         data[i],
         title: placeName[i],
@@ -77,15 +64,15 @@ class GoogleMapPageState extends State<GoogleMapPage> {
       );
     }
 
-    _controller.future.then((controller) => controller.moveCamera(
-        CameraUpdate.newLatLngBounds(_boundsFromLatLngList(data), 32)));
+     _controller.future.then((controller) => controller.moveCamera(
+         CameraUpdate.newLatLngBounds(_boundsFromLatLngList(data), 32)));
     setState(() {});
   }
 
   Future<Uint8List> _getBytesFromAsset(
-    String path, {
-    int width,
-  }) async {
+      String path, {
+        int width,
+      }) async {
     ByteData data = await rootBundle.load(path);
     Codec codec = await instantiateImageCodec(
       data.buffer.asUint8List(),
@@ -98,12 +85,12 @@ class GoogleMapPageState extends State<GoogleMapPage> {
   }
 
   Future<void> _addMarker(
-    LatLng position, {
-    String title = 'none',
-    String snippet = 'none',
-    String pinAsset = 'assets/images/pin_marker.png',
-    bool isShowInfo = false,
-  }) async {
+      LatLng position, {
+        String title = 'none',
+        String snippet = 'none',
+        String pinAsset = 'assets/images/pin_marker.png',
+        bool isShowInfo = false,
+      }) async {
     final Uint8List markerIcon = await _getBytesFromAsset(
       pinAsset,
       width: 150,
@@ -117,17 +104,17 @@ class GoogleMapPageState extends State<GoogleMapPage> {
         position: position,
         infoWindow: isShowInfo
             ? InfoWindow(
-                title: title,
-                snippet: snippet,
-                onTap: () => _launchMaps(
-                  lat: position.latitude,
-                  lng: position.longitude,
-                ),
-              )
+          title: title,
+          snippet: snippet,
+          onTap: () =>  _launchMaps(
+            lat: position.latitude,
+            lng: position.longitude,
+          ),
+        )
             : InfoWindow(),
         icon: bitmap,
         onTap: () async {
-          print('teb here');
+          print('tab here');
         },
       ),
     );
@@ -175,96 +162,4 @@ class GoogleMapPageState extends State<GoogleMapPage> {
       southwest: LatLng(x0, y0),
     );
   }
-
-  void _trackingLocation() async {
-    if (_locationSubscription != null) {
-      _locationSubscription?.cancel();
-      _locationSubscription = null;
-      _markers.clear();
-      setState(() {});
-      return;
-    }
-
-    try {
-      final serviceEnabled = await _checkServiceGPS();
-      if (!serviceEnabled) {
-        throw PlatformException(code: 'SERVICE_STATUS_DENIED');
-      }
-
-      final permissionGranted = await _checkPermission();
-      if (!permissionGranted) {
-        throw PlatformException(code: 'PERMISSION_DENIED');
-      }
-
-      await _locationService.changeSettings(
-        accuracy: LocationAccuracy.high,
-        interval: 10000,
-        distanceFilter: 100,
-      ); // meters.
-
-      _locationSubscription = _locationService.onLocationChanged.listen(
-        (locationData) async {
-          _markers.clear();
-          final latLng = LatLng(
-            locationData.latitude,
-            locationData.longitude,
-          );
-          await _addMarker(
-            latLng,
-            pinAsset: 'assets/images/pin_biker.png',
-          );
-          _animateCamera(latLng);
-          setState(() {});
-        },
-      );
-    } on PlatformException catch (e) {
-      switch (e.code) {
-        case 'PERMISSION_DENIED':
-          //todo
-          break;
-        case 'SERVICE_STATUS_ERROR':
-          //todo
-          break;
-        case 'SERVICE_STATUS_DENIED':
-          //todo
-          break;
-        default:
-        //todo
-      }
-    }
-  }
-
-  Future<bool> _checkPermission() async {
-    var permissionGranted = await _locationService.hasPermission();
-    if (permissionGranted == PermissionStatus.granted) {
-      return true;
-    }
-    permissionGranted = await _locationService.requestPermission();
-    return permissionGranted == PermissionStatus.granted;
-  }
-
-  Future<bool> _checkServiceGPS() async {
-    var serviceEnabled = await _locationService.serviceEnabled();
-    if (serviceEnabled) {
-      return true;
-    }
-    serviceEnabled = await _locationService.requestService();
-    return serviceEnabled;
-  }
-
-  Future<void> _animateCamera(LatLng latLng) async {
-    _controller.future.then((controller) {
-      controller.animateCamera(CameraUpdate.newLatLngZoom(latLng, 16));
-    });
-  }
-
-  FloatingActionButton _buildTrackingButton() {
-    final isTracking = _locationSubscription != null;
-    return FloatingActionButton.extended(
-      onPressed: _trackingLocation,
-      label: Text(isTracking ? 'Stop Tracking' : 'Start Tracking'),
-      backgroundColor: isTracking ? Colors.red : Colors.blue,
-      icon: Icon(isTracking ? Icons.stop : Icons.play_arrow),
-    );
-  }
-} //end class
+}//end class

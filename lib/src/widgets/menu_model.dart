@@ -1,5 +1,6 @@
+
 import 'package:flutter/material.dart';
-import 'package:project/src/configs/app_route.dart';
+import 'package:miniproject/src/configs/app_route.dart';
 class Menu {
   final String title;
   final IconData icon;
@@ -22,36 +23,38 @@ class MenuViewModel {
 
   List<Menu> get items => <Menu>[
     Menu(
-      iconColor: Colors.red,
       title: 'โปรไฟล์',
-      icon: Icons.person,
+      icon: Icons.accessibility,
+      iconColor: Colors.lightGreen,
       onTap: (context) {
         Navigator.pushNamed(context, AppRoute.infoRoute);
       },
     ),
     Menu(
-      iconColor: Colors.blue,
-      title: 'ประเภทห้องเช้า',
-      icon: Icons.roofing,
+      title: 'ประเภทห้องเช่า',
+      icon: Icons.account_balance_rounded,
+      iconColor: Colors.greenAccent,
       onTap: (context) {
-        Navigator.pushNamed(context, AppRoute.roomRoute);
+        Navigator.pushNamed(context, AppRoute.roomRout);
       },
     ),
     Menu(
-      iconColor: Colors.amber,
       title: 'เปรียบเทียบราคาห้องเช่า',
-      icon: Icons.monetization_on_outlined,
+      icon: Icons.attach_money,
+      iconColor: Colors.teal,
       onTap: (context) {
         //Navigator.pushNamed(context, Constant.mapRoute);
       },
     ),
     Menu(
-      iconColor: Colors.green,
       title: 'เพิ่มห้องเช่า',
-      icon: Icons.addchart,
+      icon: Icons.water_damage_sharp,
+      iconColor: Colors.green,
       onTap: (context) {
-        Navigator.pushNamed(context, AppRoute.roomaddRoute);
+        Navigator.pushNamed(context,AppRoute.addRout);
       },
     ),
+
+
   ];
 }

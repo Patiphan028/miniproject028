@@ -1,11 +1,12 @@
+
 import 'package:flutter/material.dart';
-import 'package:project/src/configs/app_setting.dart';
-import 'package:project/src/pages/home/home_page.dart';
-import 'package:project/src/pages/login/login_page.dart';
+import 'package:miniproject/src/pages/home/home_page.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'configs/app_route.dart';
-
+import 'configs/app_setting.dart';
+import 'pages/login/login_page.dart';
 
 class App extends StatelessWidget {
   @override
@@ -13,22 +14,22 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: AppRoute().getAll,
-      theme: ThemeData(primaryColor: Colors.amber),
-       home: FutureBuilder(
+      theme: ThemeData(primaryColor: Colors.indigoAccent),
+      home: HomePage(),
+      // home: FutureBuilder(
       //   future: SharedPreferences.getInstance(),
       //   builder: (context, snapshot) {
       //     if(!snapshot.hasData){
       //       return Container(color: Colors.white,);
-      //       }else{
-      //       final token = snapshot.data.getString(AppSetting.userNameSetting ?? '');
-      //       if(token != null){
-      //         return HomePage();
-      //       }else{
-      //         return LoginPage();
-      //       }
+      //     }
+      //     final token = snapshot.data.getString(AppSetting.userNameSetting ?? '');
+      //     if(token != null){
+      //       return HomePage();
+      //     }else {
+      //       return LoginPage();
       //     }
       //   },
-       ),
+      // ),
     );
   }
 } //end class

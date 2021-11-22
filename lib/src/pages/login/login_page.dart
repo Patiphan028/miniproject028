@@ -1,8 +1,8 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:project/src/configs/app_route.dart';
-import 'package:project/src/configs/app_setting.dart';
-import 'package:project/src/services/network.dart';
+import 'package:miniproject/src/configs/app_route.dart';
+import 'package:miniproject/src/configs/app_setting.dart';
+import 'package:miniproject/src/services/network.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,13 +13,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isHidden = false;
 
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  var _usernameController = TextEditingController();
+  var _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
+    _usernameController?.dispose();
+    _passwordController?.dispose();
     super.dispose();
   }
 
@@ -31,28 +31,51 @@ class _LoginPageState extends State<LoginPage> {
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
         child: Column(
+
           // Important: Remove any padding from the ListView.
           children: [
             AppBar(
               title: Text('เมนู'),
-              backgroundColor: Colors.pink,
+              // accountName: Text('nattawut'),
+              // accountEmail: Text('mike@gmail.com'),
+              // currentAccountPicture: CircleAvatar(
+              //   backgroundImage: AssetImage('assets/images/images.jpg'),
             ),
+            //),
+            // ...MenuViewModel()
+            //     .items
+            //     .map((e) => ListTile(
+            //   leading: Icon(
+            //     e.icon,
+            //     color: e.iconColor,
+            //   ),
+            //   title: Text(e.title),
+            //   onTap: () {
+            //     e.onTap(context);
+            //     // Update the state of the app.
+            //     // ...
+            //   },
+            // ))
+            //.toList(),
+            //Spacer(),
             ListTile(
               leading: Icon(
-                Icons.roofing,
-                color: Colors.blue,
+                Icons.water_damage_outlined,
+                color: Colors.teal,
               ),
-              title: Text('ประเภทห้องเช่า'),
+              title:  Text('ประเภทห้องเช่า'),
               onTap: () async {
-                Navigator.pushNamed(context, AppRoute.roomRoute);
+                //Navigator.pushNamed(context, AppRoute.roomRout);
+                // Update the state of the app.
+                // ...
               },
             ),
             ListTile(
               leading: Icon(
-                Icons.monetization_on_outlined,
-                color: Colors.amber,
+                Icons.all_inbox,
+                color: Colors.blueAccent,
               ),
-              title: Text('เปรียบเทียบราคาห้องเช่า'),
+              title:  Text('เปรียบเทียบราคาห้องเช่า'),
               onTap: () async {
                 Navigator.pushNamed(context, AppRoute.LoginRoute);
                 // Update the state of the app.
@@ -62,147 +85,139 @@ class _LoginPageState extends State<LoginPage> {
             ListTile(
               leading: Icon(
                 Icons.login,
-                color: Colors.pink,
+                color: Colors.blue,
+
               ),
-              title: Text('ลงชื่อเข้าใช้'),
+              title:  Text('ลงชื่อเข้าใช้'),
               onTap: () async {
                 Navigator.pushNamed(context, AppRoute.LoginRoute);
+                // Update the state of the app.
+                // ...
               },
             ),
           ],
         ),
       ),
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: Text('ลงชื่อผู้ใช้'),
-        backgroundColor: Colors.pink,
       ),
-      //backgroundColor: Color(0XFFFf48fb1),
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage('assets/images/TA.png'),
-              fit: BoxFit.cover,
-            )),
-          ),
-          Column(
-            children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              Image.network(
-                'https://www.cmneuro.go.th/meeting/doc_cmneuro/images/login.png',
-                width: 80,
-                height: 80,
-              ),
-              Text(
-                'Login',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontFamily: 'Pacifico',
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: Column(children: <Widget>[
+      backgroundColor: Color(0XFFFeceff1),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            // SizedBox(
+            //   height: 100,
+            // ),
+
+            SizedBox(
+              height: 20,
+            ),
+            // Text(
+            //   'เข้าสู่ระบบ',
+            //   style: TextStyle(
+            //       color: Colors.white, fontSize: 30, fontFamily: 'Pacifico'),
+            // ),
+            SizedBox(
+              height: 20,
+            ),
+            Card(
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              child: Column(
+                children: <Widget>[
                   TextField(
                     controller: _usernameController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: 'username',
-                      hintText: 'xx@gmail.com',
-                      icon: Icon(Icons.person),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
+                        labelText: 'อีมล',
+                        icon: Icon(Icons.account_box_outlined)),
                   ),
                   TextField(
                     controller: _passwordController,
                     obscureText: isHidden,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelText: 'password',
-                      icon: Icon(Icons.lock),
+                      labelText: 'รหัสผ่าน',
+                      icon: Icon(Icons.smartphone),
                       suffixIcon: IconButton(
-                        icon: isHidden
-                            ? Icon(Icons.visibility_off)
-                            : Icon(Icons.visibility),
-                        onPressed: togglePasswordVisibility,
-                      ),
+                          icon: isHidden
+                              ? Icon(Icons.visibility_off)
+                              : Icon(Icons.visibility),
+                          onPressed: togglePasswordVisibility),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10,),
                   ElevatedButton(
                     onPressed: () async {
                       final username = _usernameController.text;
                       final password = _passwordController.text;
-                      print('login with  $username  $password');
 
-                      final message = await NetworkService()
-                          .validateUserLoginDio(username, password);
-                      if (message != 'failed') {
-                        print('Login success');
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
+                      //final message = await NetworkService().validateUserLoginDio(username, password);
+                      print('login with $username $password');
+                      if (username == '' && password == '') {
+                        print('login succes');
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.setString(AppSetting.userNameSetting, username);
                         prefs.setString(AppSetting.passwordSetting, password);
 
                         Navigator.pushNamed(context, AppRoute.homeRoute);
                       } else {
-                        print('Login failed');
+                        print('login failed');
                         Flushbar(
-                          title: "Login Failed",
-                          titleColor: Colors.amber,
-                          backgroundGradient: LinearGradient(
-                              colors: [Colors.blueGrey, Colors.black]),
                           icon: Icon(
-                            Icons.cancel_outlined,
-                            size: 30,
-                            color: Colors.red,
+                            Icons.announcement,
+                            color: Colors.greenAccent,
                           ),
-                          message: "Login ไม่สำเร็จ",
+                          backgroundGradient: LinearGradient(
+                              colors: [Colors.teal, Colors.lightBlueAccent]),
+                          title: "รหัสผ่านไม่ถูกต้อง",
+                          message: "กรุณากรอกรหัสผ่านให้ถูกต้อง",
                           duration: Duration(seconds: 5),
                         )..show(context);
                       }
                     },
-                    child: Text('    เข้าสู่ระบบ    '),
+                    child: Text('เข้าสู่ระบบ'),
+                    // onPressed: () {
+                    //   Navigator.pushNamed(context, AppRoute.homeRoute);
+                    // },
+
                     style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      textStyle:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                      primary: Color(0XFFFe91e63),
-                    ),
+                        primary: Colors.teal,
+                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  SizedBox(height: 10,),
                   ElevatedButton(
-                    child: Text('สร้างบัญชีผู้ใช้'),
+                    child: Text('สมัครสมาชิก'),
                     onPressed: () {
-                      Navigator.pushNamed(context, AppRoute.subscribeRoute);
+                      Navigator.pushNamed(context, AppRoute.mysignupRout);
                     },
                     style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      textStyle:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                      primary: Color(0XFFFe91e63),
-                    ),
+                        primary: Colors.teal,
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
-                ]),
+
+
+
+                ],
               ),
-            ],
-          )
-        ],
+            ),
+            //Image.network(
+            //'https://github.com/624235032/image01/blob/main/t1.png?raw=true',
+            //width: 500,
+            //height: 500,
+            //),
+          ],
+        ),
       ),
     );
   }
 
   void togglePasswordVisibility() => setState(() => isHidden = !isHidden);
-}
+
+}//end class
